@@ -48,7 +48,7 @@ function authproceed() {
 		  az.oauth = oauth = new OAuth(config);
 
 		  oauth.setAccessToken([o.access_token, o.access_token_secret]);	
-		  oauth.get("https://api.twitter.com/1/statuses/home_timeline.json?count=5", 
+		  oauth.get("https://api.twitter.com/1/statuses/home_timeline.json?count=20", 
 				function (data) {
 					var timeline =  JSON.parse(data.text);
 					renderTimeline(timeline);		
