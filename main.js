@@ -46,11 +46,35 @@ function authproceed() {
 
 		  config = configure(o)
 		  az.oauth = oauth = new OAuth(config);
-		
-		  oauth.setAccessToken(o.access_token);
-	
-		  oauth.get("https://api.twitter.com/1/statuses/home_timeline.json?count=5")
+
+		  oauth.setAccessToken([o.access_token, o.access_token_secret]);	
+		  oauth.get("https://api.twitter.com/1/statuses/home_timeline.json?count=5", 
+				function (data) {
+					var timeline =  JSON.parse(data.text);
+					renderTimeline(timeline);		
+		  
+	    		})
+
 		
 	})
 	
 }
+
+function renderTimeline(timeline) {	
+	var html ="";
+	
+	for(var i=0; i<timeline.length; i++){
+		html += "<div class='tweet'><span class='user'>"+timeline[i].user.name+"</span><br>"+timeline[i].text+"</div>";
+	}
+	document.getElementById("content").innerHTML = html;
+}
+
+function clearTimeline() {	
+	document.getElementById("content").innerHTML ="";	
+}
+
+function displayErrorMessage(message) {
+	document.getElementById("content").innerHTML = "Oops Something went wrong.<br>Try to Log-out and in Again <br>"+message;	
+}
+
+
