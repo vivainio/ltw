@@ -5,7 +5,8 @@ function getJson(url) {
 	return $.ajax({
 		url: url,
 		dataType: 'json',
-		crossDomain: false
+		crossDomain: false,
+		async: false
 	});
 	
 }
@@ -15,14 +16,18 @@ function startauth() {
 	var res = getJson("http://authorizr.herokuapp.com/api/oauth1/v1/create_session/b39f9bed618e4167b632b63ed87ab100/")
 	//console.log(res)
 	
-	res.done(function() {
+	res
+		.done(function() {
 			  o = $.parseJSON(res.responseText)
 			  console.log("DONE!", o);
 			  url = o.url
 			  az.sid = o.session_id
 			  mwl.loadURL(url)
-		  });
-	
+		  })
+		 .error(function() {
+			console.log("Error!!!!")
+		 
+		 })
 	
 }
 
