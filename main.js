@@ -4,8 +4,9 @@ function getJson(url) {
 	console.log("Get", url)
 	return $.ajax({
 		url: url,
-		dataType: 'json'}
-	)
+		dataType: 'json',
+		crossDomain: false
+	});
 	
 }
 
